@@ -23,7 +23,7 @@ in
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = user; # Define your hostname.
+  networking.hostName = "${user}-homelab"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -93,7 +93,7 @@ in
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
-    	"shigarus" = import ./home.nix;
+      ${user} = import ./home.nix;
     };
   };
 
@@ -108,49 +108,8 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    bat
-    btop
-    fd
-    fish-lsp
-    fzf
-    emacs
-    eza
-    gcc
-    gimp
-    git
-    git-credential-manager
-    git-lfs
-    grpcurl
-    ghostty
-    jfrog-cli
-    jq
-    jwt-cli
-    kubectl
-    kubie
-    k3s
-    k9s
-    maven
-    neovim
-    # npm
-    parallel
-    ripgrep
-    # teamcity-cli not in nexpkgs
-    shellcheck
-    shfmt
-    tailscale
+    k3s # this is should be enabled as a service anyway, and service can be enabled only here
     terraform
-    tilt
-    tldr
-    tree-sitter
-    tmux
-    starship
-    stow
-    unzip
-    vhs
-    yazi
-    yq
-    zoxide
-  #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
