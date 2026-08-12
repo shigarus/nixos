@@ -19,7 +19,7 @@ in
       isNormalUser = true;
       initialPassword = "12345";
       description = "main user";
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
       extraGroups = [ "networkmanager" "wheel" ];
       packages = with pkgs; [
         kdePackages.kate

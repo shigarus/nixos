@@ -4,6 +4,9 @@
 
 { config, pkgs, inputs, ... }:
 
+let
+  user = "shigarus";
+in
 {
   nix.settings.experimental-features = ["nix-command" "flakes"];
   imports =
@@ -20,7 +23,7 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = user; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -85,7 +88,7 @@
   # services.xserver.libinput.enable = true;
 
   main-user.enable = true;
-  main-user.userName = "shigarus";
+  main-user.userName = user;
 
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
@@ -97,6 +100,7 @@
   # Install firefox.
   programs.firefox.enable = true;
   programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -104,10 +108,48 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    bat
+    btop
+    fd
+    fish-lsp
+    fzf
+    emacs
+    eza
+    gcc
+    gimp
     git
+    git-credential-manager
+    git-lfs
+    grpcurl
     ghostty
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    jfrog-cli
+    jq
+    jwt-cli
+    kubectl
+    kubie
+    k3s
+    k9s
+    maven
+    neovim
+    # npm
+    parallel
+    ripgrep
+    # teamcity-cli not in nexpkgs
+    shellcheck
+    shfmt
+    tailscale
+    terraform
+    tilt
+    tldr
+    tree-sitter
+    tmux
+    starship
     stow
+    unzip
+    vhs
+    yazi
+    yq
+    zoxide
   #  wget
   ];
 
@@ -121,9 +163,49 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
+  services.tailscale.enable = true;
+  systemd.services.tailscale-autoconnect = {
+    description = "Automatic connection to Tailscale";
 
+    # make sure tailscale is running before trying to connect to tailscale
+    after = [ "network-pre.target" "tailscale.service" ];
+    wants = [ "network-pre.target" "tailscale.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    # set this service as a oneshot job
+    serviceConfig.Type = "oneshot";
+
+    # have the job run this shell script
+    script = with pkgs; ''
+      # wait for tailscaled to settle
+      sleep 2
+
+      # check if we are already authenticated to tailscale
+      status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+      if [ $status = "Running" ]; then # if so, then do nothing
+        exit 0
+      fi
+
+      # otherwise authenticate with tailscale
+      
+      ${tailscale}/bin/tailscale up -authkey $(cat /home/shigarus/.sec/tailscale)
+    '';
+  };
+
+  networking.firewall = {
+    # enable the firewall
+    enable = true;
+
+    # always allow traffic from your Tailscale network
+    trustedInterfaces = [ "tailscale0" ];
+
+    # allow the Tailscale UDP port through the firewall
+    allowedUDPPorts = [ config.services.tailscale.port ];
+
+    # let you SSH in over the public internet
+    allowedTCPPorts = [ 22 ];
+  };
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
