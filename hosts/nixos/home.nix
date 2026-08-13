@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
+  imports = [ inputs.pi.homeModules.default];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "shigarus";
@@ -18,6 +19,7 @@
   home.packages = with pkgs; [
     bat
     btop
+    cargo
     fd
     fish-lsp
     fzf
@@ -93,6 +95,10 @@
   #
   home.sessionVariables = {
     EDITOR = "nvim";
+  };
+
+  programs.pi.coding-agent = {
+    enable = true;
   };
 
   # Let Home Manager install and manage itself.

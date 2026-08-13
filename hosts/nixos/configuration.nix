@@ -109,6 +109,8 @@ in
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     k3s # this is should be enabled as a service anyway, and service can be enabled only here
+    # TODO: move to home-manager when unfree is solved
+    keymapp # zsa oryx
     terraform
   ];
 
