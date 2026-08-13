@@ -1,7 +1,10 @@
 { inputs, config, pkgs, ... }:
 
 {
-  imports = [ inputs.pi.homeModules.default];
+  imports = [
+    inputs.pi.homeModules.default
+    inputs.plasma-manager.homeModules.plasma-manager
+  ];
 
   # Allow unfree packages for this Home Manager configuration. This works both
   # when imported from NixOS and when used as a standalone Home Manager config.
@@ -12,6 +15,23 @@
   home.username = "shigarus";
   home.homeDirectory = "/home/shigarus";
 
+  # kde plasma configuration
+  programs.plasma = {
+    enable = true;
+    input.keyboard = {
+      numlockOnStartup = "on";
+      layouts = [ { layout = "us"; } { layout = "ru"; } ];
+    };
+    # Does not work my way, always opens new application instead of switching.
+    # Plasma has only way of pinnig apps to specific
+    # doc positions and switching to them via Meta+Num.
+    # While macos uses the sam shortcut to switch tabs withit one application.
+    # hotkeys.commands."to-ghostty" = {
+    #   name = "Ghostty";
+    #   key = "Ctrl+Shift+Alt+k";
+    #   command = "ghostty";
+    # };
+  };
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
