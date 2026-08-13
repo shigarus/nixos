@@ -118,10 +118,17 @@ in
   #   enableSSHSupport = true;
   # };
 
+  virtualisation.docker.enable = true;
   # List services that you want to enable:
 
   services.openssh.enable = true;
   services.tailscale.enable = true;
+  systemd.sleep.settings.Sleep = {
+    AllowSuspend = "no";
+    AllowHibernation = "no";
+    AllowHybridSleep = "no";
+    AllowSuspendThenHibernate = "no";
+  };
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
 

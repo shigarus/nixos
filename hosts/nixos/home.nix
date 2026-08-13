@@ -45,6 +45,7 @@
     bat
     btop
     cargo
+    dig
     docker
     docker-compose
     fd
