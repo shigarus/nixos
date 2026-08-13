@@ -13,7 +13,6 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./main-user.nix
-      inputs.home-manager.nixosModules.default
     ];
 
   # Bootloader.
@@ -90,6 +89,9 @@ in
   main-user.enable = true;
   main-user.userName = user;
 
+  # Allow unfree packages for the system pkgs set.
+  nixpkgs.config.allowUnfree = true;
+
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
@@ -102,16 +104,10 @@ in
   programs.zsh.enable = true;
   programs.fish.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     k3s # this is should be enabled as a service anyway, and service can be enabled only here
-    # TODO: move to home-manager when unfree is solved
-    keymapp # zsa oryx
-    terraform
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

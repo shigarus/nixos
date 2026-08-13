@@ -2,6 +2,11 @@
 
 {
   imports = [ inputs.pi.homeModules.default];
+
+  # Allow unfree packages for this Home Manager configuration. This works both
+  # when imported from NixOS and when used as a standalone Home Manager config.
+  nixpkgs.config.allowUnfree = true;
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "shigarus";
@@ -20,6 +25,8 @@
     bat
     btop
     cargo
+    docker
+    docker-compose
     fd
     fish-lsp
     fzf
@@ -35,6 +42,7 @@
     jfrog-cli
     jq
     jwt-cli
+    keymapp # zsa oryx
     kubectl
     kubie
     k9s
@@ -47,7 +55,7 @@
     shellcheck
     shfmt
     tailscale
-    # terraform
+    terraform
     tilt
     tldr
     tree-sitter
@@ -59,7 +67,6 @@
     yazi
     yq
     zoxide
-  #  wget
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
