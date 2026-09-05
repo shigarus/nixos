@@ -31,17 +31,18 @@
         ];
       };
     };
-    homeCofigurations.rog-ally = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            ## commented out not to forget, but currently its being set inside home.nix
-            # config = {
-            #   allowUnfree = true;
-            # };
-          };
-          modules = [
-            ./hosts/rog-ally/home.nix
-          ];
-        };
+    homeConfigurations.rog-ally = home-manager.lib.homeManagerConfiguration {
+      extraSpecialArgs = { inherit inputs; };
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        ## commented out not to forget, but currently its being set inside home.nix
+        # config = {
+        #   allowUnfree = true;
+        # };
+      };
+      modules = [
+        ./hosts/rog-ally/home.nix
+      ];
+    };
   };
 }

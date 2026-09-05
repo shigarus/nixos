@@ -5,6 +5,7 @@
     inputs.pi.homeModules.default
     inputs.plasma-manager.homeModules.plasma-manager
   ];
+  targets.genericLinux.enable = true;
 
   # Allow unfree packages for this Home Manager configuration. This works both
   # when imported from NixOS and when used as a standalone Home Manager config.
@@ -41,6 +42,8 @@
   # release notes.
   home.stateVersion = "26.05"; # Please read the comment before changing.
 
+  programs.ghostty = { enable = true; };
+
   home.packages = with pkgs; [
     bat
     btop
@@ -59,7 +62,7 @@
     git-credential-manager
     git-lfs
     grpcurl
-    ghostty
+    # ghostty
     jfrog-cli
     jq
     jwt-cli
