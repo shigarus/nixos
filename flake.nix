@@ -19,7 +19,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     # use "nixos", or your hostname as the name of the configuration
     # it's a better practice than "default" shown in the video
     nixosConfigurations = {
@@ -31,5 +31,17 @@
         ];
       };
     };
+    homeCofigurations.rog-ally = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            ## commented out not to forget, but currently its being set inside home.nix
+            # config = {
+            #   allowUnfree = true;
+            # };
+          };
+          modules = [
+            ./hosts/rog-ally/home.nix
+          ];
+        };
   };
 }
