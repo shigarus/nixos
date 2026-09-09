@@ -1,4 +1,4 @@
-# Arch install
+# Home-manager only on nix
 
 ``` bash
 sudo pacman -S nix
@@ -14,4 +14,9 @@ nix-shell '<home-manager>' -A install
 echo 'experimental-features = nix-command flakes' | sudo tee -a /etc/nix/nix.conf
 
 home-manager switch --flake .#rog-ally
+```
+
+# System-manager
+```bash
+nix run 'github:numtide/system-manager' -- switch --flake .#rog-ally --sudo
 ```
