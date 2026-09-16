@@ -10,9 +10,4 @@
     ../../hm-modules/programmin.nix
     ../../hm-modules/ai.nix
   ];
-
-  home.packages = with pkgs; [
-    # teamcity-cli not in nexpkgs
-    tailscale
-  ];
 }
