@@ -19,7 +19,7 @@
     };
     system-manager = {
       url = "github:numtide/system-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs .nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -35,10 +35,17 @@
         ];
       };
     };
-    systemConfigs.rog-ally = system-manager.lib.makeSystemConfig {
+    homeConfigurations.rog-ally = home-manager.lib.homeManagerConfiguration {
       extraSpecialArgs = { inherit inputs; };
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        ## commented out not to forget, but currently its being set inside home.nix
+        # config = {
+        #   allowUnfree = true;
+        # };
+      };
       modules = [
-        ./hosts/rog-ally/system.nix
+        ./hosts/rog-ally/home.nix
       ];
     };
   };
