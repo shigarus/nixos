@@ -17,10 +17,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    system-manager = {
-      url = "github:numtide/system-manager";
-      inputs .nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, home-manager, system-manager, ... }@inputs: {
