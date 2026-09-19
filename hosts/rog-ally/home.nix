@@ -3,8 +3,9 @@
 {
   targets.genericLinux.enable = true;
   imports = [
-    ../../hm-modules/desktop.nix
+    # ../../hm-modules/desktop.nix
     ../../hm-modules/generic.nix
+    ../../hm-modules/hyprland-single-monitor.nix
     ../../hm-modules/fish.nix
     ../../hm-modules/gui.nix
     ../../hm-modules/programmin.nix
