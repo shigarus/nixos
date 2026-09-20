@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    hyprls
+  ];
   systemd.user.services.hyprland-single-monitor = {
     Unit = {
       Description = "Disables first monitor when adding second.";

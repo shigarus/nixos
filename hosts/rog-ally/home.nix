@@ -5,7 +5,7 @@
   imports = [
     # ../../hm-modules/desktop.nix
     ../../hm-modules/generic.nix
-    ../../hm-modules/hyprland-single-monitor.nix
+    ../../hm-modules/hyprland-after-install.nix
     ../../hm-modules/fish.nix
     ../../hm-modules/gui.nix
     ../../hm-modules/programmin.nix
