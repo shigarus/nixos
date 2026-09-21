@@ -20,6 +20,7 @@
 			else
 				hyprctl dispatch 'hl.dsp.dpms({action="enable", monitor="eDP-1"})'
 			fi
+      hyprctl dispatch 'hl.dsp.workspace.swap_monitors({monitor1="eDP-1",monitor2= "DP-2"})'
 		}
 
 		# Run once at startup
