@@ -37,5 +37,15 @@ If docker service fails with `overlay2.override_kernel_ check: overlay2` - you n
 	  ]
 '''
 
+## Power button behaviour
+
+'''bash
+printf '%s\n' \
+  'HandlePowerKey=suspend' \
+  'HandlePowerKeyLongPress=poweroff' |
+sudo tee -a /etc/systemd/logind.conf >/dev/null
+'''
+Will work only after reboot.
+
 ## tailscale
 TODO: Already was installed when this doc is written, add later
