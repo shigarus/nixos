@@ -17,10 +17,15 @@
 			# Adjust 'eDP-1' to your built-in monitor name
 			if [ "$count" -gt 1 ]; then
 				hyprctl dispatch 'hl.dsp.dpms({action="disable", monitor="eDP-1"})'
+        hyprctl workspaces -j |
+          jq -r '.[] | select(.monitor == "eDP-1") | .name' |
+          xargs -I{} sh -c 'hyprctl dispatch "hl.dsp.workspace.move({workspace=\"name:$1\",monitor=\"DP-2\"})"' _ {}
 			else
 				hyprctl dispatch 'hl.dsp.dpms({action="enable", monitor="eDP-1"})'
+        hyprctl workspaces -j |
+          jq -r '.[] | select(.monitor != "eDP-1") | .name' |
+          xargs -I{} sh -c 'hyprctl dispatch "hl.dsp.workspace.move({workspace=\"name:$1\",monitor=\"eDP-1\"})"' _ {}
 			fi
-      hyprctl dispatch 'hl.dsp.workspace.swap_monitors({monitor1="eDP-1",monitor2= "DP-2"})'
 		}
 
 		# Run once at startup
