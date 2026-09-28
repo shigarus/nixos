@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 {
-  home.packages = with pkgs; [
-  ];
   systemd.user.services.hyprland-single-monitor = {
     Unit = {
       Description = "Disables first monitor when adding second.";
@@ -17,12 +15,12 @@
 			if [ "$count" -gt 1 ]; then
 				hyprctl dispatch 'hl.dsp.dpms({action="disable", monitor="eDP-1"})'
         hyprctl workspaces -j |
-          jq -r '.[] | select(.monitor == "eDP-1") | .name' |
+          jq -r '.[] | select(.monitor == "eDP-1" and .ispersistent) | .name' |
           xargs -I{} sh -c 'hyprctl dispatch "hl.dsp.workspace.move({workspace=\"name:$1\",monitor=\"DP-2\"})"' _ {}
 			else
 				hyprctl dispatch 'hl.dsp.dpms({action="enable", monitor="eDP-1"})'
         hyprctl workspaces -j |
-          jq -r '.[] | select(.monitor != "eDP-1") | .name' |
+          jq -r '.[] | select(.monitor != "eDP-1" and .ispersistent) | .name' |
           xargs -I{} sh -c 'hyprctl dispatch "hl.dsp.workspace.move({workspace=\"name:$1\",monitor=\"eDP-1\"})"' _ {}
 			fi
 		}
