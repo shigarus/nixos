@@ -9,6 +9,7 @@ in
       ./hardware-configuration.nix
       ./main-user.nix
       ../../nixos-modules/hyprland.nix
+      ../../nixos-modules/flatpack.nix
     ];
 
   # Bootloader.

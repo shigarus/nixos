@@ -6,5 +6,7 @@ sudo pacman -Syu docker
 printf '%s\n' \
   'HandlePowerKey=suspend' \
   'HandlePowerKeyLongPress=poweroff' |
-sudo tee -a /etc/systemd/logind.conf >/dev/null
+  sudo tee -a /etc/systemd/logind.conf >/dev/null
 
+sudo pacman -Suy zen-browser
+echo "INSTALL TAILSCALE SOMEHOW, THE KNOLEDGE IS LOST"
