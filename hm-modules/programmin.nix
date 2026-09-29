@@ -5,7 +5,7 @@
     EDITOR = "nvim";
   };
   home.packages = with pkgs; [
-	bat
+    bat
     btop
     cargo
     dig
@@ -27,6 +27,7 @@
     k9s
     maven
     neovim
+    nodejs
     parallel
     ripgrep
     shellcheck
