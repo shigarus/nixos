@@ -1,5 +1,5 @@
 { config, pkgs, inputs, ... }:
-{;
+{
   imports = [
     inputs.noctalia.nixosModules.default
   ];
@@ -9,8 +9,7 @@
     xsettingsd
     gtk3
     gtk4
-    swash
-    xorg.xhost
+    xhost
     # Hyprland desktop utilities
     grim
     slurp
@@ -30,8 +29,6 @@
     enable = true;
 
     recommendedServices.enable = true;
-    launch_apps_as_systemd_services = true;
+    # launch_apps_as_systemd_services = true;
   };
-
 }
-

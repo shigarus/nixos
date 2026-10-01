@@ -3,6 +3,14 @@ let
   user = "shigarus";
 in
 {
+  nix.settings.max-jobs = 2;
+  nix.settings.cores = 2;
+  # haha, it applies only after switch, but you can't switch if you don't have enough memory
+  # use ./create_swap.sh and happy using this 'declarative' distro after
+  # swapDevices = [{
+  #   device = "/var/lib/swapfile";
+  #   size = 16*1024; # 16 GiB
+  # }];
   nix.settings.experimental-features = ["nix-command" "flakes"];
   imports =
     [
