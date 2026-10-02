@@ -3,6 +3,7 @@ let
   user = "shigarus";
 in
 {
+  # TODO: add some nix clean and update?
   nix.settings.max-jobs = 2;
   nix.settings.cores = 2;
   # haha, it applies only after switch, but you can't switch if you don't have enough memory
