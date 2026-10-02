@@ -18,7 +18,10 @@ in
       ./main-user.nix
       ../../nixos-modules/hyprland.nix
       ../../nixos-modules/flatpack.nix
+      ../../nixos-modules/remote-desktop.nix
     ];
+
+  remote-desktop.user = user;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -141,7 +144,7 @@ in
 
       # otherwise authenticate with tailscale
       
-      ${tailscale}/bin/tailscale up -authkey $(cat /home/shigarus/.sec/tailscale)
+      ${tailscale}/bin/tailscale up -authkey $(cat /home/${user}/.sec/tailscale)
     '';
   };
 
@@ -172,4 +175,8 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "26.05"; # Did you read the comment?
 
+  # nextcloud
+  # systemd.services.tailscale-nextcloud = {
+  #   script = ''tailscale funnel 4500''
+  # };
 }
