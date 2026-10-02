@@ -86,8 +86,9 @@ in
     };
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  # Enable if have problems with zen
+  # programs.firefox.enable = true;
+  
   programs.zsh.enable = true;
   programs.fish.enable = true;
 
