@@ -176,7 +176,15 @@ in
   system.stateVersion = "26.05"; # Did you read the comment?
 
   # nextcloud
-  # systemd.services.tailscale-nextcloud = {
-  #   script = ''tailscale funnel 4500''
-  # };
+  systemd.services.tailscale-nextcloud = {
+    description = "Serve next-cloud via tailscale";
+
+    # make sure tailscale is running before trying to connect to tailscale
+    after = [ "tailscale-autoconnect.service" ];
+    wants = [ "tailscale-autoconnect.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    # have the job run this shell script
+    script = with pkgs; ''${tailscale}/bin/tailscale funnel 4500'';
+  };
 }
