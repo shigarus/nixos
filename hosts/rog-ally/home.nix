@@ -10,5 +10,6 @@
     ../../hm-modules/gui.nix
     ../../hm-modules/programmin.nix
     ../../hm-modules/ai.nix
+    ../../hm-modules/remote-descktop-client.nix
   ];
 }
